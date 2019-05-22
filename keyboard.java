@@ -107,9 +107,7 @@ public class keyboard extends JPanel implements KeyListener{
        case KeyEvent.VK_U:
             channels[instrument].noteOn(id("F#"),volume);
             break;
-    } case KeyEvent.VK_K:
-            channels[instrument].noteOn(id("D#"),volume);
-            break;      
+    }     
    }
    @Override
    public void keyTyped(KeyEvent e){}

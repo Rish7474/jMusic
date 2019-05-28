@@ -11,10 +11,6 @@ public class musicPlayer{
       frame.add(k);
       frame.setVisible(true);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      while(k.getCond())
-      {
-         k.repaint();
-      }
-      System.exit(0);
+      k.run();
    }
 }

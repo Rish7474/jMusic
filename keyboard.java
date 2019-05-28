@@ -93,10 +93,10 @@ public class keyboard extends JPanel implements KeyListener{
             channels[instrument].noteOn(id("G"),volume);
             break;
          case KeyEvent.VK_Q:
-            channels[instrument].noteOn(id("G#"),volume);
+            channels[instrument].noteOn(id("G#", 0),volume);
             break;
          case KeyEvent.VK_W:
-            channels[instrument].noteOn(id("A#"),volume);
+            channels[instrument].noteOn(id("A#", 0),volume);
             break; 
          case KeyEvent.VK_R:
             channels[instrument].noteOn(id("C#"),volume);

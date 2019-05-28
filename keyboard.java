@@ -11,22 +11,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 public class keyboard extends JPanel implements KeyListener{
-   private boolean cond;
    private boolean[] keysDown = new boolean[500];
    private ArrayList<String> notes = new ArrayList<String>(Arrays.asList("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"));
    private  MidiChannel[] channels;
-   private int instrument; 
-   private  int volume;
-   private int octave;
+   private int instrument = 1; 
+   private  int volume = 100;
+   private int octave = 3;
    
    public keyboard(){
-      cond = true;
       addKeyListener(this);
       setFocusable(true);
       setFocusTraversalKeysEnabled(false);
-      octave = 3;
-      volume = 100;
-      instrument = 1;
    }
    
    public void paint(Graphics g){
@@ -53,9 +48,6 @@ public class keyboard extends JPanel implements KeyListener{
    public void keyPressed(KeyEvent e){
       int keyCode = e.getKeyCode();
       switch (keyCode){
-         case KeyEvent.VK_ESCAPE: 
-            cond = false;
-            break;
          case KeyEvent.VK_UP: 
             increaseOctave();
             break;

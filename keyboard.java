@@ -33,7 +33,7 @@ public class keyboard extends JPanel implements KeyListener{
    }
    
    public void paint(Graphics g){
-      drawKeyBoard(g);
+      drawWhiteKeys(g);
    }
    
    public void increaseVol(){volume++;}
@@ -51,7 +51,7 @@ public class keyboard extends JPanel implements KeyListener{
          }
    }
    
-   public void drawKeyBoard(Graphics g){
+   public void drawWhiteKeys(Graphics g){
       g.setColor(Color.white);
       int itr = 0; //iterative number
       for(int c = 5; c<800;c+=100){

@@ -68,7 +68,11 @@ public class keyboard extends JPanel implements KeyListener{
       int itr = 8;
       for(int c = 75; c<700;c+=100){     
          if(keysDown[itr])
+         {
             g.setColor(Color.red);
+         }
+         else
+            g.setColor(Color.black);
        g.fillRect(c,0,50,200);
        g.setColor(Color.black);
        if(itr==9 || itr==11)
@@ -125,23 +129,23 @@ public class keyboard extends JPanel implements KeyListener{
             channels[instrument].noteOn(id("G"),volume);
             keysDown[7] = true;
             break;
-         case KeyEvent.VK_Q:
+         case KeyEvent.VK_W:
             channels[instrument].noteOn(id("G#"),volume);
             keysDown[8] = true;
             break;
-         case KeyEvent.VK_W:
+         case KeyEvent.VK_E:
             channels[instrument].noteOn(id("A#"),volume);
             keysDown[9] = true;
             break; 
-         case KeyEvent.VK_R:
+         case KeyEvent.VK_T:
             channels[instrument].noteOn(id("C#"),volume);
             keysDown[10] = true;
             break; 
-         case KeyEvent.VK_T:
+         case KeyEvent.VK_Y:
             channels[instrument].noteOn(id("D#"),volume);
             keysDown[11] = true;
             break;  
-         case KeyEvent.VK_U:
+         case KeyEvent.VK_I:
             channels[instrument].noteOn(id("F#"),volume);
             keysDown[12] = true;
             break;
@@ -184,19 +188,19 @@ public class keyboard extends JPanel implements KeyListener{
          case KeyEvent.VK_K:
             keysDown[7] = false;
             break;
-         case KeyEvent.VK_Q:
+         case KeyEvent.VK_W:
             keysDown[8] = false;
             break;
-         case KeyEvent.VK_W:
+         case KeyEvent.VK_E:
             keysDown[9] = false;
             break; 
-         case KeyEvent.VK_R:
+         case KeyEvent.VK_T:
             keysDown[10] = false;
             break; 
-         case KeyEvent.VK_T:
+         case KeyEvent.VK_Y:
             keysDown[11] = false;
             break;  
-         case KeyEvent.VK_U:
+         case KeyEvent.VK_I:
             keysDown[12] = false;
             break;
        }

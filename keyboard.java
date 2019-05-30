@@ -11,20 +11,16 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 public class keyboard extends JPanel implements KeyListener{
-   private boolean[] keysDown = new boolean[500];
    private ArrayList<String> notes = new ArrayList<String>(Arrays.asList("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"));
    private  MidiChannel[] channels;
    private int instrument = 1; 
-   private  int volume = 100;
+   private  int volume = 150;
    private int octave = 3;
-   
+
    public keyboard(){
       addKeyListener(this);
       setFocusable(true);
       setFocusTraversalKeysEnabled(false);
-   }
-   
-   public void paint(Graphics g){
       try{
          Synthesizer synth = MidiSystem.getSynthesizer();
          synth.open();
@@ -34,7 +30,14 @@ public class keyboard extends JPanel implements KeyListener{
          throw new RuntimeException(e);
       }
    }
-   public boolean getCond(){return cond;}
+   
+   public void paint(Graphics g){
+   
+   }
+   
+   public void run(){
+      repaint();
+   }
    
    public void increaseVol(){volume++;}
    public void decreaseVol(){volume--;}
@@ -43,7 +46,7 @@ public class keyboard extends JPanel implements KeyListener{
    
    public int id(String note){return notes.indexOf(note.substring(0))+12*octave+12;}
    public int id(String note,int x){return notes.indexOf(note.substring(0))+12*(octave-1)+12;}
-   
+
    @Override
    public void keyPressed(KeyEvent e){
       int keyCode = e.getKeyCode();
@@ -85,10 +88,10 @@ public class keyboard extends JPanel implements KeyListener{
             channels[instrument].noteOn(id("G"),volume);
             break;
          case KeyEvent.VK_Q:
-            channels[instrument].noteOn(id("G#", 0),volume);
+            channels[instrument].noteOn(id("G#"),volume);
             break;
          case KeyEvent.VK_W:
-            channels[instrument].noteOn(id("A#", 0),volume);
+            channels[instrument].noteOn(id("A#"),volume);
             break; 
          case KeyEvent.VK_R:
             channels[instrument].noteOn(id("C#"),volume);
@@ -96,10 +99,16 @@ public class keyboard extends JPanel implements KeyListener{
          case KeyEvent.VK_T:
             channels[instrument].noteOn(id("D#"),volume);
             break;  
-       case KeyEvent.VK_U:
+         case KeyEvent.VK_U:
             channels[instrument].noteOn(id("F#"),volume);
             break;
-    }     
+         case KeyEvent.VK_1:
+            instrument = 1;
+            break;
+         case KeyEvent.VK_2:
+            instrument = 9;
+            break;
+    }      
    }
    @Override
    public void keyTyped(KeyEvent e){}

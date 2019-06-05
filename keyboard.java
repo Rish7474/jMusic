@@ -1,5 +1,3 @@
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -39,6 +37,8 @@ public class keyboard extends JPanel implements KeyListener{
    }
    
    public void paint(Graphics g){
+      g.setColor(Color.blue);
+      g.fillRect(0,0,1000,1000);
       drawWhiteKeys(g);
       drawBlackKeys(g);
    }
@@ -68,7 +68,8 @@ public class keyboard extends JPanel implements KeyListener{
                      }
                }
             }
-       }
+         repaint();
+        }
    }
    
    public void createNoteList(){

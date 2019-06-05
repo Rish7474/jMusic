@@ -1,3 +1,5 @@
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -20,6 +22,7 @@ public class keyboard extends JPanel implements KeyListener{
    private int instrument = 1; 
    private  int volume = 150;
    private int octave = 3;
+   private long timeInBetween = 300;
    
    public keyboard(){
       addKeyListener(this);
@@ -43,9 +46,29 @@ public class keyboard extends JPanel implements KeyListener{
    public void playText(String file){
       this.file = file;
       createNoteList();
+      boolean timeCond;
+      long start, end;
       for(String line: lineList)
-         for(int c = 0; c< line.length();c++)
-            channels[instrument].noteOn(id(line.substring(c,c+1)),volume);
+         for(int c = 0; c< line.length();c++){
+            if(Character.isDigit(line.charAt(c)))
+               octave = Integer.parseInt(line.substring(c,c+1));
+            else{
+               if(line.substring(c,c+1).equals(" "))
+                  timeInBetween+=100;
+               else{
+                  timeCond = true;
+                  start = end = System.currentTimeMillis();
+                     while(timeCond){
+                        if(end-start>timeInBetween){
+                           channels[instrument].noteOn(id(line.substring(c,c+1)),volume);
+                           timeCond = false;
+                           timeInBetween = 300;
+                        }
+                     end = System.currentTimeMillis();
+                     }
+               }
+            }
+       }
    }
    
    public void createNoteList(){

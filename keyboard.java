@@ -9,14 +9,18 @@ import javax.sound.midi.Synthesizer;
 import javax.sound.midi.MidiChannel;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.io.*;
 
 public class keyboard extends JPanel implements KeyListener{
    private ArrayList<String> notes = new ArrayList<String>(Arrays.asList("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"));
+   private ArrayList<String> lineList = new ArrayList<String>();
+   private String file;
    private boolean[] keysDown = new boolean[13];
    private  MidiChannel[] channels;
    private int instrument = 1; 
    private  int volume = 150;
    private int octave = 3;
+   
    public keyboard(){
       addKeyListener(this);
       setFocusable(true);
@@ -36,6 +40,24 @@ public class keyboard extends JPanel implements KeyListener{
       drawBlackKeys(g);
    }
    
+   public void playText(String file){
+      this.file = file;
+      createNoteList();
+      for(String line: lineList)
+         for(int c = 0; c< line.length();c++)
+            channels[instrument].noteOn(id(line.substring(c,c+1)),volume);
+   }
+   
+   public void createNoteList(){
+      try{
+         BufferedReader br = new BufferedReader(new FileReader(file));
+         String line;
+         while((line = br.readLine()) != null)
+            lineList.add(line);
+         }         
+      catch(Exception e) {System.out.print("Error reading file");}
+   }
+   
    public void increaseVol(){volume++;}
    public void decreaseVol(){volume--;}
    public void increaseOctave(){octave++;}
@@ -45,10 +67,9 @@ public class keyboard extends JPanel implements KeyListener{
    public int id(String note,int x){return notes.indexOf(note.substring(0))+12*(octave-1)+12;}
    
    public void run(){
+      playText("MusicText.txt");
       while(true)
-         {
-            repaint();
-         }
+         repaint();
    }
    
    public void drawWhiteKeys(Graphics g){

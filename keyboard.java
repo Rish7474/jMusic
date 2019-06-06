@@ -60,9 +60,15 @@ public class keyboard extends JPanel implements KeyListener{
                   start = end = System.currentTimeMillis();
                      while(timeCond){
                         if(end-start>timeInBetween){
-                           channels[instrument].noteOn(id(line.substring(c,c+1)),volume);
-                           timeCond = false;
-                           timeInBetween = 300;
+                           if(line.substring(1,2).equals("#")){
+                              channels[instrument].noteOn(id(line.substring(c,c+2)),volume);
+                              c++;
+                           }
+                           else{
+                              channels[instrument].noteOn(id(line.substring(c,c+1)),volume);
+                              timeCond = false;
+                              timeInBetween = 300;
+                          }
                         }
                      end = System.currentTimeMillis();
                      }
@@ -87,8 +93,8 @@ public class keyboard extends JPanel implements KeyListener{
    public void increaseOctave(){octave++;}
    public void decreaseOctave(){octave--;}
    
-   public int id(String note){return notes.indexOf(note.substring(0))+12*octave+12;}
-   public int id(String note,int x){return notes.indexOf(note.substring(0))+12*(octave-1)+12;}
+   public int id(String note){return notes.indexOf(note)+12*octave+12;}
+   public int id(String note,int x){return notes.indexOf(note)+12*(octave-1)+12;}
    
    public void run(){
       playText("MusicText.txt");

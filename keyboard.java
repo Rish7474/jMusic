@@ -1,7 +1,6 @@
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.sound.midi.MidiSystem;
@@ -20,6 +19,7 @@ public class keyboard extends JPanel implements KeyListener{
    private int instrument = 1; 
    private  int volume = 150;
    private int octave = 3;
+   private int autoOctave = 3;
    private long timeInBetween = 300;
    
    public keyboard(){
@@ -51,7 +51,7 @@ public class keyboard extends JPanel implements KeyListener{
       for(String line: lineList)
          for(int c = 0; c< line.length();c++){
             if(Character.isDigit(line.charAt(c)))
-               octave = Integer.parseInt(line.substring(c,c+1));
+               autoOctave = Integer.parseInt(line.substring(c,c+1));
             else{
                if(line.substring(c,c+1).equals(" "))
                   timeInBetween+=100;
@@ -62,6 +62,8 @@ public class keyboard extends JPanel implements KeyListener{
                         if(end-start>timeInBetween){
                            if(line.substring(1,2).equals("#")){
                               channels[instrument].noteOn(id(line.substring(c,c+2)),volume);
+                              timeCond = false;
+                              timeInBetween = 300;
                               c++;
                            }
                            else{

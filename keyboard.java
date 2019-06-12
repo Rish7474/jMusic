@@ -36,6 +36,8 @@ public class keyboard extends JPanel implements KeyListener{
       }
    }
    
+   /*This method creates a background for the JFrame and calls two other methods
+     to create the keyboard keys*/
    public void paint(Graphics g){
       g.setColor(Color.blue);
       g.fillRect(0,0,1000,1000);
@@ -43,6 +45,9 @@ public class keyboard extends JPanel implements KeyListener{
       drawBlackKeys(g);
    }
    
+   /*This method calls the createNoteList() to add each line of file(.txt) to lineList, then
+      goes through each line from the file, and in each line it goes through each char to see what was typed
+      and act accordingly.*/
    public void playText(String file){
       this.file = file;
       createNoteList();
@@ -80,6 +85,8 @@ public class keyboard extends JPanel implements KeyListener{
         }
    }
    
+   /*This method takes a .txt file and creates a String ArrayList. Each element in
+      the ArrayList is one line of the .txt file.*/
    public void createNoteList(){
       try{
          BufferedReader br = new BufferedReader(new FileReader(file));
@@ -95,6 +102,9 @@ public class keyboard extends JPanel implements KeyListener{
    public void increaseOctave(){octave++;}
    public void decreaseOctave(){octave--;}
    
+   /*Both id methods return an unique integer value for each note for the MidiChannel array, channels,
+     to use to play sound. int id(String note, int x) was created for specifcally for notes A, G, and B,
+     which come before C because the are one octave less than the other notes.*/
    public int id(String note){return notes.indexOf(note)+12*octave+12;}
    public int id(String note,int x){return notes.indexOf(note)+12*(octave-1)+12;}
    
@@ -104,6 +114,8 @@ public class keyboard extends JPanel implements KeyListener{
          repaint();
    }
    
+   /*This method goes through a loop to draw 8 white keys. If a key is pressed, its color will
+      change to yellow.*/
    public void drawWhiteKeys(Graphics g){
       g.setColor(Color.white);
       int itr = 0; //key number
@@ -115,7 +127,9 @@ public class keyboard extends JPanel implements KeyListener{
          itr++;
       }
    }
-   
+
+   /*This method goes through a loop to draw 5 red keys. If a key is pressed, its color will
+      change to red.*/
    public void drawBlackKeys(Graphics g){
       g.setColor(Color.black);
       int itr = 8;
@@ -134,6 +148,10 @@ public class keyboard extends JPanel implements KeyListener{
       }
    }
    
+   /*This method is called anytime a computer key is pressed. When called it is able to
+      get the specfic keycode for the key that was pressed. The keycode is then placed into a
+      switch to perform the proper action. Intially a chain of if and else statmenrs were used instead
+      of the switch, but changed because a switch offers O(1) time complexity.*/
    @Override
    public void keyPressed(KeyEvent e){
       int keyCode = e.getKeyCode();
